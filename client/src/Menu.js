@@ -40,24 +40,6 @@ class App extends Component {
     	});
 
 
-const App = () =>
-
-// render() {
-//   return (
-    <Nav />
-    <Wrapper>
-      {this.state.presets.map(preset => (
-        <Presets
-          key={presets.name}
-          name={presets.name}
-          file={presets.file}
-          description={presets.description}
-          newSong={this.newSong}
-        />
-      ))}
-    </Wrapper>
-//   );
-  // }
 }
 
 export default App;

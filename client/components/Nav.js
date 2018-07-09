@@ -4,7 +4,7 @@ import navCSS from "./css/navbar.css";
 const Nav = props => (
 
 
-  
+
   //NOTE where does {props.children} go???
 
 

@@ -12,6 +12,10 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
 
+app.get("/", function(req, res) {
+  res.sendFile(__dirname + "/client/public/index.html");
+});
+
 
 //NOTE use spotify or dump this code
 

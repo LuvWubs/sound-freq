@@ -1,19 +1,42 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require("mongoose");
+//const routes = require("./routes");
 const Spotify = require('node-spotify-api');
+// const path = require('path');
+
+const routes = require('./routes');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+//app.post('/api/sounds', (req, res) => {
+  //console.log('req.body', req.body);
+//});
+
+app.use(routes);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
 
-app.get("/", function(req, res) {
-  res.sendFile(__dirname + "/client/public/index.html");
+// app.get("/", function(req, res) {
+//   res.sendFile(__dirname + "./client/public/index.html");
+// });
+
+//app.use(routes);
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/soundFreqFiles";
+// Connect to the Mongo DB
+mongoose.connect(MONGODB_URI);
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log('MongoDB Connected!');
 });
 
 

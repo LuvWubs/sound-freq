@@ -14,10 +14,10 @@ const App = () => (
       <div>
         <NavBar />
         <Switch>
-          <Route exact path="/" component={Intro} />
-          <Route exact path="/sounds" component={Home} />
-          <Route path="/sounds/:id" component={Home} />
-          <Route component={NoMatch} />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/sounds" component={Intro} />
+          {/* <Route exact path="/soundDeck" component={Deck} /> */}
+          <Route path="/*" component={NoMatch} />
         </Switch>
       </div>
     </Router>

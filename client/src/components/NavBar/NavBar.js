@@ -21,12 +21,23 @@ class NavBar extends Component {
         </div>
         <div style={{ marginTop: '30px' }}>
         <ul className="list-unstyled main-menu">
-          <li className="text-right"><a href="#" id="nav-close">[close]</a></li>
+          <li className="text-right"><div id="nav-close">[close]</div></li>
 
           <li>
+            {/* <form id="form-group" method="GET">Audio Themes
+              <ul className="list-soundThemes">
+
+                <Link to="/" className="sound-nav" className="list" id="bug">Bugs</Link>
+
+                <Link to="/" className="sound-nav" className="list" id="drops">Drops</Link>
+                <Link to="/" className="sound-nav" className="list" id="electronics">Electronics</Link>
+                <Link to="/" className="sound-nav" className="list" id="noise">Noises</Link>
+                <Link to="/" className="sound-nav" className="list" id="all">All Themes</Link>
+              </ul>
+            </form> */}
             <form id="form-group" method="GET">Audio Themes
               <ul className="list-soundThemes">
-                <li className="sound-nav"><a href="/bugs" className="list" id="bug">Bugs<span className="icon"></span></a></li>
+                <li className="sound-nav"><a href="#" className="list" id="bug">Bugs<span className="icon"></span></a></li>
                 <li className="sound-nav"><a href="#" className="list" id="drops">Drops<span className="icon"></span></a></li>
                 <li className="sound-nav"><a href="#" className="list" id="electronics">Electronics<span className="icon"></span></a></li>
                 <li className="sound-nav"><a href="#" className="list" id="noise">Noises<span className="icon"></span></a></li>

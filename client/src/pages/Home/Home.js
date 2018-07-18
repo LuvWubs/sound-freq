@@ -5,28 +5,63 @@ import API from "../../utl/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
+
+import ReactHowler from 'react-howler';
+
+// import { Input, TextArea, FormBtn } from "../../components/Form";
 import './Home.css';
 
 class Sounds extends Component {
-  state = {
-    sounds: [],
-    name: "",
-    file: "",
-    description: ""
-  };
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
-    this.loadSounds();
+    this.state = {
+      sounds: [],
+      name: "",
+      file: "",
+      description: "",
+      playing: false
+    };
+  }
+
+  componentWillMount() {
+    console.log('home.js loading sounds');
+    this.loadSounds()
+      .then(() =>  {
+        console.log('LOAD OF SOUNDS SUCCESSFUL');
+        window.addEventListener('keydown', this.randomSound);
+      })
+      .catch(error => console.error(error));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.randomSound);
+  }
+
+  randomSound = (sounds) => {
+    console.log(this.state.sounds[Math.floor(Math.random() * this.state.sounds.length)]);
+    const file = this.state.sounds[Math.floor(Math.random() * this.state.sounds.length)].file;
+    console.log(`../../audio${file}`);
+    // const sound = new Howl({ src: [`../../audio${file}`]});
+    // sound.play();
+    return file;
   }
 
   loadSounds = () => {
-    API.getSounds()
-      .then(res =>
-        this.setState({ sounds: res.data, name: "", file: "", description: "" })
-      )
-      .catch(err => console.log(err));
+    return new Promise((resolve, reject) => {
+      API.getSounds()
+        .then(res => {
+          console.log(res.data);
+          this.setState({ sounds: res.data, name: "", file: "", description: "" })
+          resolve();
+        })
+        .catch(err => reject(err));
+    })
   };
+
+  // API.getSound(this.props.match.params.id)
+  //   .then(res => this.setState({ sound: res.data }))
+  //   .catch(err => console.log(err));
 
   deleteSound = id => {
     API.deleteSound(id)
@@ -54,11 +89,16 @@ class Sounds extends Component {
     }
   };
 
+  handlePlay() {
+    console.log('is this werking????');
+    this.setState({ playing: true });
+  }
+
   render() {
     return (
-      <Container fluid>
+      <Container>
         <Row>
-          <Col size="md-6">
+          {/* <Col size="md-6">
 
             <form>
               <Input
@@ -86,13 +126,13 @@ class Sounds extends Component {
                 Get Songs
               </FormBtn>
             </form>
-          </Col>
+          </Col> */}
 
 
           <Col size="md-6 sm-12">
             {this.state.sounds.length ? (
               <List>
-                {this.state.sounds.map(sound => (
+                {/* {this.state.sounds.map(sound => (
                   <ListItem key={sound._id}>
                     <Link to={"/sounds/" + sound._id}>
                       <strong>
@@ -101,6 +141,18 @@ class Sounds extends Component {
                     </Link>
                     <Delete onClick={() => this.deleteSound(sound._id)} />
                   </ListItem>
+                ))} */}
+                {this.state.sounds.map(sound => (
+                  <div key={ sound._id }>
+                    <ReactHowler
+                      src={[`../../public/audio${sound.file}`]}
+                      html5={true}
+                      // preload={true}
+                      playing={this.state.playing}
+                    />
+                    <button onClick={ () => this.handlePlay() }>Play { `${sound.file}` }</button>
+                  </div>
+
                 ))}
               </List>
             ) : (

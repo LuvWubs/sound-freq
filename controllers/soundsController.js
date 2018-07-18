@@ -2,16 +2,16 @@ const db = require("../models");
 
 module.exports = {
   findAll: function(req, res) {
-    console.log('findAll');
     db.Sound
       .find(req.query)
-      .sort({ date: -1 })
+      // .sort({ date: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
+      // res.end();
   },
-  findById: function(req, res) {
+  findByCategory: function(req, res) {
     db.Sound
-      .findById(req.params.id)
+      .find({where: req.params.category})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -24,6 +24,7 @@ module.exports = {
         .create(sound)
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
+        // res.end();
     });
   },
   update: function(req, res) {

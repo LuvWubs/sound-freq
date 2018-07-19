@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default {
   getSounds: function() {
-    console.log('api.js getSounds fired!');
+    console.log('api.js get all sounds fired!');
     return axios.get("/api/sounds");
   },
   getSound: function(category) {

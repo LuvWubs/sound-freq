@@ -17,42 +17,41 @@ class Sounds extends Component {
 
     this.state = {
       sounds: [],
-      name: "",
-      file: "",
-      description: "",
+      // name: "",
+      // file: "",
+      // description: "",
       playing: false
     };
   }
 
-  componentWillMount() {
-    console.log('home.js loading sounds');
+  componentDidMount() {
     this.loadSounds()
-      .then(() =>  {
-        console.log('LOAD OF SOUNDS SUCCESSFUL');
-        window.addEventListener('keydown', this.randomSound);
-      })
+      // .then(() =>  {
+      //   console.log('LOAD OF SOUNDS SUCCESSFUL', this.randomSound);
+      //   window.addEventListener('keydown', this.randomSound);
+      // })
       .catch(error => console.error(error));
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.randomSound);
-  }
+  // componentWillUnmount() {
+  //   window.removeEventListener('keydown', this.randomSound);
+  // }
 
-  randomSound = (sounds) => {
-    console.log(this.state.sounds[Math.floor(Math.random() * this.state.sounds.length)]);
-    const file = this.state.sounds[Math.floor(Math.random() * this.state.sounds.length)].file;
-    console.log(`../../audio${file}`);
-    // const sound = new Howl({ src: [`../../audio${file}`]});
-    // sound.play();
-    return file;
-  }
+  // randomSound = (sounds) => {
+  //   console.log(this.state.sounds[Math.floor(Math.random() * this.state.sounds.length)]);
+  //   const file = this.state.sounds[Math.floor(Math.random() * this.state.sounds.length)].file;
+  //   console.log(`../../audio${file}`);
+  //   // const sound = new Howl({ src: [`../../audio${file}`]});
+  //   // sound.play();
+  //   return file;
+  // }
 
   loadSounds = () => {
     return new Promise((resolve, reject) => {
       API.getSounds()
         .then(res => {
-          console.log(res.data);
           this.setState({ sounds: res.data, name: "", file: "", description: "" })
+          console.log('setState: ', this.state);
           resolve();
         })
         .catch(err => reject(err));
@@ -89,9 +88,18 @@ class Sounds extends Component {
     }
   };
 
-  handlePlay() {
-    console.log('is this werking????');
-    this.setState({ playing: true });
+  handlePlay(e) {
+    console.log('eeeevent:', e);
+    var sound = new Howl({
+      src: [e.file]
+      //   autoplay: false,
+      //   loop: false,
+      //   volume: 0.5,
+    })
+    sound.play();
+
+    // this.setState({ playing: true });
+    this.state.play();
   }
 
   render() {
@@ -136,7 +144,7 @@ class Sounds extends Component {
                   <ListItem key={sound._id}>
                     <Link to={"/sounds/" + sound._id}>
                       <strong>
-                        {sound.name} by {sound.description}
+                        {sound.name} is a {sound.description} sound category
                       </strong>
                     </Link>
                     <Delete onClick={() => this.deleteSound(sound._id)} />
@@ -150,7 +158,7 @@ class Sounds extends Component {
                       // preload={true}
                       playing={this.state.playing}
                     />
-                    <button onClick={ () => this.handlePlay() }>Play { `${sound.file}` }</button>
+                    <button onClick={ () => this.handlePlay(sound) } > { `${sound.file}` }</button>
                   </div>
 
                 ))}

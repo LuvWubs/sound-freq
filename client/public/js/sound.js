@@ -8,21 +8,22 @@ $(document).ready(function() {
       // console.log('chosen category: ', category);
       $.get('/api/sounds/' + category, function(data) {
         console.log('getting ' + category + ' sounds from api-routes...');
-        return data.JSON();
-        // db.soundFreqFiles.findById({category});
+
+        db.soundFreqFiles.findById({category})
+        .then(data => e.JSON(data));
         // randoNoise(data);
       })
     })
 
     // function randoNoise(sounds) {
 
-      $(document).keydown(function() {
-        var rando = sounds[Math.floor(Math.random()*sounds.length)];
-        console.log('rando: ', rando);
-        var randoFile = rando.file;
-        console.log('on keydown ' + randoFile + ' was requested');
-        playIt(randoFile);
-      });
+      // $(document).keydown(function() {
+      //   var rando = sounds[Math.floor(Math.random()*sounds.length)];
+      //   console.log('rando: ', rando);
+      //   var randoFile = rando.file;
+      //   console.log('on keydown ' + randoFile + ' was requested');
+      //   playIt(randoFile);
+      // });
     // };
 
     function playIt(filepath) {

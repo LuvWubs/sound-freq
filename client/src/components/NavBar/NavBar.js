@@ -1,12 +1,52 @@
 import React, { Component } from "react";
-//import API from "../../utl/API";
+import API from "../../utl/API";
 import { Link } from "react-router-dom";
-//import { Col, Row, Container } from "../../components/Grid";
-//import { List, ListItem } from "../../components/List";
-//import { Input, TextArea, FormBtn } from "../../components/Form";
+import { Col, Row, Container } from "../../components/Grid";
+import { List, ListItem } from "../../components/List";
+import { Input, TextArea, FormBtn } from "../../components/Form";
 import './NavBar.css';
 
 class NavBar extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      sounds: [],
+      playing: false,
+      query: '',
+    };
+  }
+
+  loadSounds = () => {
+    return new Promise((resolve, reject) => {
+      API.getSounds()
+        .then(res => {
+          console.log('getSounds res', res);
+          this.setState({ sounds: res.data})
+          resolve();
+        })
+        .catch(err => reject(err));
+    })
+  };
+
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    console.log(1);
+    if (this.state.query) {
+      API.querySpotify(this.state.query)
+        .then(res => this.loadSounds())
+        .catch(err => console.log(err));
+    }
+  };
 
   render() {
     return (
@@ -62,6 +102,20 @@ class NavBar extends Component {
                   </a>
                 </li>
               </ul>
+            </form>
+            <form>
+              <Input
+                value={this.state.query}
+                onChange={this.handleInputChange}
+                name="query"
+                placeholder="Search Spotify..."
+              />
+              <FormBtn
+                disabled={!(this.state.query)}
+                onClick={this.handleFormSubmit}
+                >
+                  Get Songs
+              </FormBtn>
             </form>
           </li>
         </ul>

@@ -1,3 +1,4 @@
+import './Home.css';
 import React, { Component } from "react";
 import Delete from "../../components/Delete";
 import API from "../../utl/API";
@@ -7,7 +8,7 @@ import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import { Howl } from 'howler';
 import ReactHowler from 'react-howler';
-import './Home.css';
+// const Spotify = require('node-spotify-api');
 
 class Sounds extends Component {
   constructor(props) {
@@ -84,7 +85,6 @@ class Sounds extends Component {
 
   handleInputChange = event => {
     const { name, value } = event.target;
-    // console.log('typed letter: ', event.target);
     this.setState({
       [name]: value
     });
@@ -111,8 +111,6 @@ class Sounds extends Component {
     });
     sound.play();
     console.log('done howling');
-    // this.setState({ playing: true });
-    // setState({ sounds: event.target.category })
   }
 
   render() {
@@ -120,7 +118,7 @@ class Sounds extends Component {
     return (
       <Container>
         <Row>
-          <Col size="md-6">
+          {/* <Col size="md-6">
 
             <form>
               <Input
@@ -129,18 +127,6 @@ class Sounds extends Component {
                 name="query"
                 placeholder="Search Spotify..."
               />
-              {/*<Input
-                value={this.state.file}
-                onChange={this.handleInputChange}
-                name="file"
-                placeholder="File"
-              />
-              <TextArea
-                value={this.state.description}
-                onChange={this.handleInputChange}
-                name="description"
-                placeholder="Description"
-              />*/}
               <FormBtn
                 disabled={!(this.state.query)}
                 onClick={this.handleFormSubmit}
@@ -148,7 +134,7 @@ class Sounds extends Component {
                 Get Songs
               </FormBtn>
             </form>
-          </Col>
+          </Col> */}
 
 
           <Col size="md-6 sm-12">

@@ -1,10 +1,12 @@
+// import '/App.css';
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-// import '/App.css';
+import { Footer } from 'react-materialize';
 import Intro from "./pages/Intro";
 import Home from "./pages/Home";
 import NoMatch from "./pages/NoMatch";
 import NavBar from "./components/NavBar";
+// import Deck from "./components/soundDeck";
 
 // import date = new.Date(Date.now());
 class App extends Component {
@@ -28,18 +30,16 @@ class App extends Component {
               updateSoundCategory={this.handleUpdateSoundCategory}
             />
             <Switch>
-
               <Route exact path="/" render={()=><Home soundCategory={this.state.soundCategory} />}/>
-
               <Route exact path="/sounds/" component={Intro} />
-              {/* <Route exact path="/soundDeck" component={Deck} /> */}
+              {/* <Route exact path="/soundDeck/" component={Deck} /> */}
               <Route path="/*" component={NoMatch} />
             </Switch>
           </div>
         </Router>
-        <footer>
+        <Footer className="footer">
           As Always, In Progress
-        </footer>
+        </Footer>
       </div>
     );
   }

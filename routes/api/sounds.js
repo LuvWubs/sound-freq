@@ -5,7 +5,7 @@ const soundsController = require("../../controllers/soundsController");
 router
   .route("/")
   .get(soundsController.findAll)
-  .post(soundsController.create);
+  .post(soundsController.querySpotify);
 
 // /api/sounds/:category
 router

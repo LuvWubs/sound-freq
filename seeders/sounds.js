@@ -2,191 +2,191 @@ const sounds = [
   {
     name: 'buzz',
     file: '/sounds/bug-buzz.wav',
-    description: 'bug'
+    category: 'bug'
   },
   {
     name: 'call',
     file: '/sounds/bug-call.wav',
-    description: 'bug'
+    category: 'bug'
   },
   {
     name: 'clicks',
     file: '/sounds/bug-clicks.wav',
-    description: 'bug'
+    category: 'bug'
   },
   {
     name: 'fireants',
     file: '/sounds/bug-fireants.wav',
-    description: 'bug'
+    category: 'bug'
   },
   {
     name: 'purring',
     file: '/sounds/bug-purring.wav',
-    description: 'bug'
+    category: 'bug'
   },
   {
     name: 'wings',
     file: '/sounds/bug-wings.wav',
-    description: 'bug'
+    category: 'bug'
   },
   {
     name: 'beatbox',
     file: '/sounds/drops-beatbox.wav',
-    description: 'drops'
+    category: 'drops'
   },
   {
     name: 'explosion',
     file: '/sounds/drops-explosion.flac',
-    description: 'drops'
+    category: 'drops'
   },
   {
     name: 'warble',
     file: '/sounds/drops-warble.ogg',
-    description: 'drops'
+    category: 'drops'
   },
   {
     name: 'bubbles',
     file: '/sounds/electronics-bubbles.wav',
-    description: 'electronics'
+    category: 'electronics'
   },
   {
     name: 'chatting',
     file: '/sounds/electronics-chatting.wav',
-    description: 'electronics'
+    category: 'electronics'
   },
   {
     name: 'chords',
     file: '/sounds/electronics-chords.wav',
-    description: 'electronics'
+    category: 'electronics'
   },
   {
     name: 'circus',
     file: '/sounds/electronics-circus.wav',
-    description: 'electronics'
+    category: 'electronics'
   },
   {
     name: 'erie',
     file: '/sounds/electronics-erie.wav',
-    description: 'electronics'
+    category: 'electronics'
   },
   {
     name: 'gutteral',
     file: '/sounds/electronics-gutteral.wav',
-    description: 'electronics'
+    category: 'electronics'
   },
   {
     name: 'highhat',
     file: '/sounds/electronics-highhat.wav',
-    description: 'electronics'
+    category: 'electronics'
   },
   {
     name: 'laserhits',
     file: '/sounds/electronics-laserhits.wav',
-    description: 'electronics'
+    category: 'electronics'
   },
   {
     name: 'pipes',
     file: '/sounds/electronics-pipes.wav',
-    description: 'electronics'
+    category: 'electronics'
   },
   {
     name: 'signal',
     file: '/sounds/electronics-signal.wav',
-    description: 'electronics'
+    category: 'electronics'
   },
   {
     name: 'warble',
     file: '/sounds/electronics-warble.wav',
-    description: 'electronics'
+    category: 'electronics'
   },
   {
     name: 'frogs',
     file: '/sounds/nature-frogs.wav',
-    description: 'nature'
+    category: 'nature'
   },
   {
     name: 'beads',
     file: '/sounds/noise-beads.wav',
-    description: 'noise'
+    category: 'noise'
   },
   {
     name: 'boioing',
     file: '/sounds/noise-boioing.wav',
-    description: 'noise'
+    category: 'noise'
   },
   {
     name: 'cat',
     file: '/sounds/noise-cat.wav',
-    description: 'noise'
+    category: 'noise'
   },
   {
     name: 'electricwhoosh',
     file: '/sounds/noise-electricwhoosh.wav',
-    description: 'noise'
+    category: 'noise'
   },
   {
     name: 'laughter',
     file: '/sounds/noise-laughter.wav',
-    description: 'noise'
+    category: 'noise'
   },
   {
     name: 'metaltwang',
     file: '/sounds/noise-metaltwang.wav',
-    description: 'noise'
+    category: 'noise'
   },
   {
     name: 'meteor',
     file: '/sounds/noise-meteor.wav',
-    description: 'noise'
+    category: 'noise'
   },
   {
     name: 'minions',
     file: '/sounds/noise-minions.wav',
-    description: 'noise'
+    category: 'noise'
   },
   {
     name: 'nailpull',
     file: '/sounds/noise-nailpull.wav',
-    description: 'noise'
+    category: 'noise'
   },
   {
     name: 'noisemaker',
     file: '/sounds/noise-noisemaker.wav',
-    description: 'noise'
+    category: 'noise'
   },
   {
     name: 'pied',
     file: '/sounds/noise-pied.wav',
-    description: 'noise'
+    category: 'noise'
   },
   {
     name: 'raspberry',
     file: '/sounds/noise-raspberry.wav',
-    description: 'noise'
+    category: 'noise'
   },
   {
     name: 'recordscratch',
     file: '/sounds/noise-recordscratch.wav',
-    description: 'noise'
+    category: 'noise'
   },
   {
     name: 'squeek',
     file: '/sounds/noise-squeek.wav',
-    description: 'noise'
+    category: 'noise'
   },
   {
     name: 'stungun',
     file: '/sounds/noise-stungun.wav',
-    description: 'noise'
+    category: 'noise'
   },
   {
     name: 'thump',
     file: '/sounds/noise-thump.wav',
-    description: 'noise'
+    category: 'noise'
   },
   {
     name: 'whizz',
     file: '/sounds/noise-whizz.wav',
-    description: 'noise'
+    category: 'noise'
   }
 ];

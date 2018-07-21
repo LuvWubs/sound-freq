@@ -37,11 +37,30 @@ class NavBar extends Component {
             </form> */}
             <form id="form-group" method="GET">Audio Themes
               <ul className="list-soundThemes">
-                <li className="sound-nav"><a href="#" className="list" id="bug">Bugs<span className="icon"></span></a></li>
-                <li className="sound-nav"><a href="#" className="list" id="drops">Drops<span className="icon"></span></a></li>
-                <li className="sound-nav"><a href="#" className="list" id="electronics">Electronics<span className="icon"></span></a></li>
-                <li className="sound-nav"><a href="#" className="list" id="noise">Noises<span className="icon"></span></a></li>
-                <li className="sound-nav"><a href="#" className="list" id="all">All Themes<span className="icon"></span></a></li>
+                <li className="sound-nav">
+                  <a href="#" className="list" id="bug" onClick={() => this.props.updateSoundCategory('bug')}>
+                    Bugs<span className="icon"></span>
+                  </a>
+                </li>
+                <li className="sound-nav">
+                  <a href="#" className="list" id="drops" onClick={() => this.props.updateSoundCategory('drops')}>
+                    Drops<span className="icon"></span>
+                  </a>
+                </li>
+                <li className="sound-nav">
+                  <a href="#" className="list" id="electronics" onClick={() => this.props.updateSoundCategory('electronics')}>
+                    Electronics<span className="icon"></span>
+                  </a>
+                </li>
+                <li className="sound-nav">
+                  <a href="#" className="list" id="noise" onClick={() => this.props.updateSoundCategory('noise')}>
+                    Noises<span className="icon"></span>
+                  </a></li>
+                <li className="sound-nav">
+                  <a href="#" className="list" id="all" onClick={() => this.props.updateSoundCategory('all')}>
+                    All Themes<span className="icon"></span>
+                  </a>
+                </li>
               </ul>
             </form>
           </li>

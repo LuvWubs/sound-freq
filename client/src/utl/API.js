@@ -14,5 +14,10 @@ export default {
   },
   saveSound: function(soundData) {
     return axios.post("/api/sounds", soundData);
+  },
+  querySpotify: function(query) {
+    console.log(2, query);
+    //NOTE should this be something besides axios, maybe bring in multer???
+    return axios.post("/api/sounds", {q: query});
   }
 };

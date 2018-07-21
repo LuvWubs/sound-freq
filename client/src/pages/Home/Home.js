@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import Delete from "../../components/Delete";
-// import Jumbotron from "../../components/Jumbotron";
 import API from "../../utl/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-
+import { Input, TextArea, FormBtn } from "../../components/Form";
+import { Howl } from 'howler';
 import ReactHowler from 'react-howler';
-
-// import { Input, TextArea, FormBtn } from "../../components/Form";
 import './Home.css';
 
 class Sounds extends Component {
@@ -17,17 +15,15 @@ class Sounds extends Component {
 
     this.state = {
       sounds: [],
-      // name: "",
-      // file: "",
-      // description: "",
-      playing: false
+      playing: false,
+      query: '',
     };
   }
 
   componentDidMount() {
     this.loadSounds()
       // .then(() =>  {
-      //   console.log('LOAD OF SOUNDS SUCCESSFUL', this.randomSound);
+        // console.log('LOAD OF SOUNDS SUCCESSFUL', this.randomSound);
       //   window.addEventListener('keydown', this.randomSound);
       // })
       .catch(error => console.error(error));
@@ -50,8 +46,26 @@ class Sounds extends Component {
     return new Promise((resolve, reject) => {
       API.getSounds()
         .then(res => {
-          this.setState({ sounds: res.data, name: "", file: "", description: "" })
-          console.log('setState: ', this.state);
+          console.log('getSounds res', res);
+          // create an object with key of category with value as array of sounds
+          /*
+            {
+              bug: ['/sounds/bug-clicks.wav', '/sounds/bug-flying.wav', ...],
+              drops: ['/sounds/drops-explosion.wav', '/sounds/drops-boom.wav', ...],
+            }
+          */
+          /*
+            this.state.category = 'bug';
+            {
+              this.state.sounds.filter((sound) => {
+              return sound.description === this.state.category;
+            })
+          }
+          */
+
+          this.setState({ sounds: res.data})
+          // this.setState is asynchronous so you can't do below:
+          //console.log('setState: ', this.state);
           resolve();
         })
         .catch(err => reject(err));
@@ -70,6 +84,7 @@ class Sounds extends Component {
 
   handleInputChange = event => {
     const { name, value } = event.target;
+    // console.log('typed letter: ', event.target);
     this.setState({
       [name]: value
     });
@@ -77,45 +92,44 @@ class Sounds extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.name || this.state.description) {
-      API.saveSound({
-        name: this.state.name,
-        file: this.state.file,
-        description: this.state.description
-      })
+    console.log(1);
+    if (this.state.query) {
+      API.querySpotify(this.state.query)
         .then(res => this.loadSounds())
         .catch(err => console.log(err));
     }
   };
 
-  handlePlay(e) {
-    console.log('eeeevent:', e);
+  handlePlay(soundUrl) {
+    console.log('soundUrl:', soundUrl);
     var sound = new Howl({
-      src: [e.file]
+      src: [soundUrl],
+      playing: true
       //   autoplay: false,
       //   loop: false,
       //   volume: 0.5,
-    })
+    });
     sound.play();
-
+    console.log('done howling');
     // this.setState({ playing: true });
-    this.state.play();
+    // setState({ sounds: event.target.category })
   }
 
   render() {
+    // console.log('Home props', this.props);
     return (
       <Container>
         <Row>
-          {/* <Col size="md-6">
+          <Col size="md-6">
 
             <form>
               <Input
-                value={this.state.name}
+                value={this.state.query}
                 onChange={this.handleInputChange}
-                name="name"
-                placeholder="Name"
+                name="query"
+                placeholder="Search Spotify..."
               />
-              <Input
+              {/*<Input
                 value={this.state.file}
                 onChange={this.handleInputChange}
                 name="file"
@@ -126,15 +140,15 @@ class Sounds extends Component {
                 onChange={this.handleInputChange}
                 name="description"
                 placeholder="Description"
-              />
+              />*/}
               <FormBtn
-                disabled={!(this.state.file && this.state.name)}
+                disabled={!(this.state.query)}
                 onClick={this.handleFormSubmit}
               >
                 Get Songs
               </FormBtn>
             </form>
-          </Col> */}
+          </Col>
 
 
           <Col size="md-6 sm-12">
@@ -150,15 +164,20 @@ class Sounds extends Component {
                     <Delete onClick={() => this.deleteSound(sound._id)} />
                   </ListItem>
                 ))} */}
-                {this.state.sounds.map(sound => (
+                {this.state.sounds
+                  .filter(sound => sound.description === this.props.soundCategory || this.props.soundCategory === 'all')
+                  .map(sound => (
                   <div key={ sound._id }>
-                    <ReactHowler
-                      src={[`../../public/audio${sound.file}`]}
-                      html5={true}
+
+                    <button onClick={ () => this.handlePlay(sound.file) } > { `${sound.file}` }</button>
+                    {/* <button > { `${sound.file}` }</button> */}
+                    {/*<ReactHowler
+                      src={[`${sound.file}`]}
+                      // html5={true}
                       // preload={true}
-                      playing={this.state.playing}
-                    />
-                    <button onClick={ () => this.handlePlay(sound) } > { `${sound.file}` }</button>
+                      playing={true}
+                      // ref={(ref) => (this.player = ref)}
+                    />*/}
                   </div>
 
                 ))}

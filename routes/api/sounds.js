@@ -11,7 +11,7 @@ router
 router
   .route("/:category")
   .get(soundsController.findByCategory)
-  .put(soundsController.update)
+  // .put(soundsController.update)
   .delete(soundsController.remove);
 
 module.exports = router;

@@ -13,12 +13,18 @@ class App extends Component {
 
   state = {
     soundCategory: '',
+    songFile: ''
   }
 
   handleUpdateSoundCategory = (soundCategory) => {
     console.log('soundCategory', soundCategory);
     this.setState({ soundCategory });
-    // console.log('this.state from navbar: ', this.state);
+  }
+
+  addSong = (songFile) => {
+    console.log('add this songFile from Spotify!', songFile);
+    this.setState({ songFile });
+    console.log('this.state: ', this.state);
   }
 
   render() {
@@ -28,18 +34,18 @@ class App extends Component {
           <div>
             <NavBar
               updateSoundCategory={this.handleUpdateSoundCategory}
+              // addSong={this.addSong}
             />
             <Switch>
-              <Route exact path="/" render={()=><Home soundCategory={this.state.soundCategory} />}/>
+              <Route exact path="/" render={()=><Home soundCategory={this.state.soundCategory} /> } />
               <Route exact path="/sounds/" component={Intro} />
-              {/* <Route exact path="/soundDeck/" component={Deck} /> */}
               <Route path="/*" component={NoMatch} />
             </Switch>
           </div>
         </Router>
-        <Footer className="footer">
+        {/* <Footer style={{ marginBottom: '0px' }}>
           As Always, In Progress
-        </Footer>
+        </Footer> */}
       </div>
     );
   }

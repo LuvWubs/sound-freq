@@ -8,7 +8,6 @@ import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import { Howl } from 'howler';
 import ReactHowler from 'react-howler';
-// const Spotify = require('node-spotify-api');
 
 class Sounds extends Component {
   constructor(props) {
@@ -65,17 +64,11 @@ class Sounds extends Component {
           */
 
           this.setState({ sounds: res.data})
-          // this.setState is asynchronous so you can't do below:
-          //console.log('setState: ', this.state);
           resolve();
         })
         .catch(err => reject(err));
     })
   };
-
-  // API.getSound(this.props.match.params.id)
-  //   .then(res => this.setState({ sound: res.data }))
-  //   .catch(err => console.log(err));
 
   deleteSound = id => {
     API.deleteSound(id)
@@ -154,16 +147,7 @@ class Sounds extends Component {
                   .filter(sound => sound.description === this.props.soundCategory || this.props.soundCategory === 'all')
                   .map(sound => (
                   <div key={ sound._id }>
-
                     <button onClick={ () => this.handlePlay(sound.file) } > { `${sound.file}` }</button>
-                    {/* <button > { `${sound.file}` }</button> */}
-                    {/*<ReactHowler
-                      src={[`${sound.file}`]}
-                      // html5={true}
-                      // preload={true}
-                      playing={true}
-                      // ref={(ref) => (this.player = ref)}
-                    />*/}
                   </div>
 
                 ))}

@@ -1,4 +1,5 @@
 import './Home.css';
+// import '../../seeders/sounds.js';
 import React, { Component } from "react";
 import Delete from "../../components/Delete";
 import API from "../../utl/API";
@@ -8,6 +9,7 @@ import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import { Howl } from 'howler';
 import ReactHowler from 'react-howler';
+// const db = require("../../../models/index.js");
 
 class Sounds extends Component {
   constructor(props) {
@@ -21,48 +23,41 @@ class Sounds extends Component {
   }
 
   componentDidMount() {
-    this.loadSounds()
-      // .then(() =>  {
-        // console.log('LOAD OF SOUNDS SUCCESSFUL', this.randomSound);
-      //   window.addEventListener('keydown', this.randomSound);
+    this.loadSounds();
+    // this.pushSounds()
+    //   .then(() =>  {
+        console.log('component mounted');
       // })
-      .catch(error => console.error(error));
+      // .catch(error => console.error(error));
   }
 
-  // componentWillUnmount() {
-  //   window.removeEventListener('keydown', this.randomSound);
-  // }
-
-  // randomSound = (sounds) => {
-  //   console.log(this.state.sounds[Math.floor(Math.random() * this.state.sounds.length)]);
-  //   const file = this.state.sounds[Math.floor(Math.random() * this.state.sounds.length)].file;
-  //   console.log(`../../audio${file}`);
-  //   // const sound = new Howl({ src: [`../../audio${file}`]});
-  //   // sound.play();
-  //   return file;
-  // }
+  pushSounds = () => {
+    // console.log('sanity check.. component mounted?');
+    // return new Promise((resolve, reject) => {
+    //     soundFreqFiles.insertMany([
+    //       {
+    //         'name': 'buzz',
+    //         'file': '/sounds/bug-buzz.wav',
+    //         'category': 'bug'
+    //       },
+    //       {
+    //         'name': 'call',
+    //         'file': '/sounds/bug-call.wav',
+    //         'category': 'bug'
+    //       }
+    //     ]);
+      // API.saveSound(seeders)
+      //   .then(res => {
+      //     console.log('db populated successfully');
+      //   })
+    // })
+  }
 
   loadSounds = () => {
     return new Promise((resolve, reject) => {
       API.getSounds()
         .then(res => {
           console.log('getSounds res', res);
-          // create an object with key of category with value as array of sounds
-          /*
-            {
-              bug: ['/sounds/bug-clicks.wav', '/sounds/bug-flying.wav', ...],
-              drops: ['/sounds/drops-explosion.wav', '/sounds/drops-boom.wav', ...],
-            }
-          */
-          /*
-            this.state.category = 'bug';
-            {
-              this.state.sounds.filter((sound) => {
-              return sound.description === this.state.category;
-            })
-          }
-          */
-
           this.setState({ sounds: res.data})
           resolve();
         })
@@ -82,16 +77,16 @@ class Sounds extends Component {
       [name]: value
     });
   };
-
-  handleFormSubmit = event => {
-    event.preventDefault();
-    console.log(1);
-    if (this.state.query) {
-      API.querySpotify(this.state.query)
-        .then(res => this.loadSounds())
-        .catch(err => console.log(err));
-    }
-  };
+  //
+  // handleFormSubmit = event => {
+  //   event.preventDefault();
+  //   console.log(1);
+  //   if (this.state.query) {
+  //     API.querySpotify(this.state.query)
+  //       .then(res => this.loadSounds())
+  //       .catch(err => console.log(err));
+  //   }
+  // };
 
   handlePlay(soundUrl) {
     console.log('soundUrl:', soundUrl);
@@ -107,29 +102,9 @@ class Sounds extends Component {
   }
 
   render() {
-    // console.log('Home props', this.props);
     return (
       <Container>
         <Row>
-          {/* <Col size="md-6">
-
-            <form>
-              <Input
-                value={this.state.query}
-                onChange={this.handleInputChange}
-                name="query"
-                placeholder="Search Spotify..."
-              />
-              <FormBtn
-                disabled={!(this.state.query)}
-                onClick={this.handleFormSubmit}
-              >
-                Get Songs
-              </FormBtn>
-            </form>
-          </Col> */}
-
-
           <Col size="md-6 sm-12">
             {this.state.sounds.length ? (
               <List>
@@ -153,7 +128,7 @@ class Sounds extends Component {
                 ))}
               </List>
             ) : (
-              <h3>No Results to Display</h3>
+              <h3>Choose a sound category from the menu</h3>
             )}
           </Col>
         </Row>

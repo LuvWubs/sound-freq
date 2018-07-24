@@ -5,10 +5,8 @@ module.exports = {
   findAll: function(req, res) {
     db.Sound
       .find(req.query)
-      // .sort({ date: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
-      // res.end();
   },
   findByCategory: function(req, res) {
     db.Sound
@@ -18,15 +16,15 @@ module.exports = {
   },
   create: function(req, res) {
     //console.log('req.body', req.body);
-    const { sounds } = req.body;
+    // const { sounds } = req.body;
     //console.log('sounds', sounds);
-    sounds.forEach((sound) => {
+    // sounds.forEach((sound) => {
       db.Sound
-        .create(sound)
+        .create(req.body)
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
         // res.end();
-    });
+    // });
   },
   update: function(req, res) {
     db.Sound
@@ -42,46 +40,35 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   querySpotify: function(req, res) {
-    console.log('querySpotify req.body', req.body);
+    console.log('querySpotify req.body: ', req.body.q);
     var spotify = new Spotify({
       // NOTE: put these somewhere safe
-      id: '824fe7c92f5d4a48a4f0adb39cdfbf10',
-      secret: '6d0b2a4874844f1c88fe185bcbd95781'
+      id: 'a9c2de2dcf4c4f5c987c4f9682d0dea6',
+      secret: 'aa353b60cbe34f45ac6ef717774a29f4'
+      // redirect_uri: 'https://open.spotify.com/album/1Qb73C8hC76e3R8udyit5I'
     });
 
-    spotify.search({ type: 'track', query: req.body }, function(err, data) {
-      if (err) {
-        return console.log('Error occurred: ' + err);
-      }
-      // NOTE: save sound to db
-      // db.Sound
-      //   .then(dbModel => res.json(dbModel));
-      //   .catch(err => res.status(422).json(err));
 
-      res.json(data);
+    // Spotify
+    // GET 'https://accounts.spotify.com/authorize/?client_id=' + spotify.id + '&response_type=code&redirect_uri='
+    app.get('/login', function(req, res) {
+      var scopes = 'user-read-private user-read-email';
+      res.redirect('https://accounts.spotify.com/authorize' +
+      '?response_type=code' +
+      '&client_id=' + 'a9c2de2dcf4c4f5c987c4f9682d0dea6');
+      // +
+      // (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
+      // '&redirect_uri=' + encodeURIComponent(redirect_uri));
     });
+     // https%3A%2F%2Fexample.com%2Fcallback&scope=user-read-private%20user-read-email&state=34fFs29kd09'
+      // NOTE search spotify by id first THEN by song track???
+      // .search({ type: 'track', query: req.body.q })
+      // .then (function(response) {
+      //   let songs = response.tracks.items.preview_url;
+      //   console.log('this is the spotify response: ', response.items);
+      //   console.log('or is this the spotify response??? ', songs);
+      // });
+      // .catch(err => res.status(422).json(err));
+      res.json();
   },
-};
-let spotified = require('node-spotify-api');
-
-var spotify = function(keys) {
-  var musicClient = new spotified(keys);
-  this.findMySong = function(commandValue) {
-    var song = commandValue || "The Sign, Ace of Base";
-    musicClient.search({ type: 'track', query: song }, function(err, data) {
-        if (err) {
-            console.log('Error occurred: ' + err);
-            return;
-        };
-        data.tracks.items.map(function(songValue) {
-          var responseObj = {};
-          responseObj.artist = songValue.artists[0].name;
-          responseObj.name = songValue.name;
-          responseObj.albums = songValue.album.name;
-          responseObj.preview = songValue.preview_url;
-
-          console.log(responseObj);
-        });
-    });
-  }
 };

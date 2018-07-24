@@ -18,7 +18,8 @@ class App extends Component {
 
   handleUpdateSoundCategory = (soundCategory) => {
     console.log('soundCategory', soundCategory);
-    this.setState({ soundCategory });
+    this.setState({ 'soundCategory': soundCategory });
+    console.log('sound category update: ', this.state);
   }
 
   addSong = (songFile) => {
@@ -34,11 +35,11 @@ class App extends Component {
           <div>
             <NavBar
               updateSoundCategory={this.handleUpdateSoundCategory}
-              // addSong={this.addSong}
+              addSong={this.addSong}
             />
             <Switch>
               <Route exact path="/" render={()=><Home soundCategory={this.state.soundCategory} /> } />
-              <Route exact path="/sounds/" component={Intro} />
+              {/* <Route exact path="/sounds/" component={Intro} /> */}
               <Route path="/*" component={NoMatch} />
             </Switch>
           </div>

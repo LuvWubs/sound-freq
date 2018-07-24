@@ -31,19 +31,19 @@ class NavBar extends Component {
         .catch(err => reject(err));
     })
   };
-
-  addSong = (songFile) => {
-    console.log('add this from Spotify!');
-    this.setState({ songFile })
-    console.log('this.state after spotify addition: ', this.state);
-    {this.state
-      // .filter(sound => sound.description === this.props.soundCategory || this.props.soundCategory === 'all')
-      .map(sound => (
-      <div key={ sound._id }>
-        <button onClick={ () => this.handlePlay(songFile) } > { `${sound.file}` }</button>
-      </div>
-    ))}
-  }
+  //
+  // addSong = songFile => {
+  //   // console.log('add this from Spotify!');
+  //   // this.setState({ songFile })
+  //   console.log('this.state after spotify addition: ', this.state);
+  //   this.state.songFile
+  //     // .filter(sound => sound.description === this.props.soundCategory || this.props.soundCategory === 'all')
+  //     .map(sound => (
+  //     <div key={ sound._id }>
+  //       <button onClick={ () => this.handlePlay(songFile) } > { `${sound.file}` }</button>
+  //     </div>
+  //   ))
+  // }
 
   handlePlay(soundUrl) {
     console.log('soundUrl:', soundUrl);
@@ -67,11 +67,11 @@ class NavBar extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    console.log(1);
+    console.log(1, this.state.query);
     if (this.state.query) {
       API.querySpotify(this.state.query)
         // .then(res => this.state.songFile)
-        .then(res => this.addSong())
+        .then(res => this.setState( {songFile: res} ))
         .catch(err => console.log(err));
     }
   };
@@ -92,17 +92,6 @@ class NavBar extends Component {
           <li className="text-right"><div id="nav-close">[close]</div></li>
 
           <li>
-            {/* <form id="form-group" method="GET">Audio Themes
-              <ul className="list-soundThemes">
-
-                <Link to="/" className="sound-nav" className="list" id="bug">Bugs</Link>
-
-                <Link to="/" className="sound-nav" className="list" id="drops">Drops</Link>
-                <Link to="/" className="sound-nav" className="list" id="electronics">Electronics</Link>
-                <Link to="/" className="sound-nav" className="list" id="noise">Noises</Link>
-                <Link to="/" className="sound-nav" className="list" id="all">All Themes</Link>
-              </ul>
-            </form> */}
             <form id="form-group" method="GET">Audio Themes
               <ul className="list-soundThemes">
                 <li className="sound-nav">
@@ -143,8 +132,8 @@ class NavBar extends Component {
                 onClick={this.handleFormSubmit}
                 //NOTE must setState w/ queried song
                 // onClick={() => this.state.addSong('query')}
-                >
-                  Get Songs
+              >
+                Get Songs
               </FormBtn>
             </form>
           </li>

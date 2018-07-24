@@ -19,6 +19,7 @@ export default {
   querySpotify: function(query) {
     console.log(2, query);
     //NOTE should this be something besides axios, maybe bring in multer???
-    return axios.post("/api/sounds", {q: query});
+    // return axios.get("https://api.spotify.com/v1/tracks/" + {q: query});
+    return axios.post("/api/sounds/", {q: query});
   }
 };

@@ -1,3 +1,11 @@
+const mongoose = require("mongoose");
+const db = require("../models");
+
+mongoose.connect(
+  process.env.MONGODB_URI ||
+  "mongodb://localhost/soundFreqFiles"
+);
+
 const sounds = [
   {
     name: 'buzz',
@@ -190,3 +198,15 @@ const sounds = [
     category: 'noise'
   }
 ];
+
+db.Sound
+  .remove({})
+  .then(() => db.Sound.collection.insertMany(sounds))
+  .then(data => {
+    console.log("Sounds added to mongoDB");
+    process.exit(0);
+  })
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
+  });

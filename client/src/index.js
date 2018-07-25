@@ -3,6 +3,6 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import './index.css';
 //import 'bootstrap/dist/css/bootstrap.min.css';
-import 'howler/dist/howler.min.js';
+// import 'howler/dist/howler.min.js';
 
 ReactDOM.render(<App />, document.getElementById("canvas"));

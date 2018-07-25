@@ -8,10 +8,9 @@ router
   .post(soundsController.querySpotify);
 
 // /api/sounds/:category
-router
-  .route("/:category")
-  .get(soundsController.findByCategory)
-  // .put(soundsController.update)
-  .delete(soundsController.remove);
+// router
+//   .route("/:category")
+//   .get(soundsController.findByCategory);
+  // .delete(soundsController.remove);
 
 module.exports = router;

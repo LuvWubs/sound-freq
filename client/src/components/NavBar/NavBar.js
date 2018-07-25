@@ -1,10 +1,10 @@
-import React, { Component } from "react";
 import API from "../../utl/API";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 // import { Col, Row, Container } from "../../components/Grid";
 // import { List, ListItem } from "../../components/List";
+import { Input, FormBtn } from "../../components/Form";
 import { Howl } from 'howler';
-import { Input, TextArea, FormBtn } from "../../components/Form";
 import './NavBar.css';
 
 class NavBar extends Component {
@@ -16,15 +16,17 @@ class NavBar extends Component {
       sounds: [],
       playing: false,
       query: '',
+      soundCategory: '',
       songFile: ''
     };
   }
 
   loadSounds = () => {
+    console.log('loadsounds loaded??');
     return new Promise((resolve, reject) => {
       API.getSounds()
         .then(res => {
-          console.log('getSounds res', res);
+          console.log('getSounds res', res.data);
           this.setState({ sounds: res.data})
           resolve();
         })
@@ -55,7 +57,6 @@ class NavBar extends Component {
       //   volume: 0.5,
     });
     sound.play();
-    console.log('done howling');
   }
 
   handleInputChange = event => {
@@ -70,11 +71,19 @@ class NavBar extends Component {
     console.log(1, this.state.query);
     if (this.state.query) {
       API.querySpotify(this.state.query)
-        // .then(res => this.state.songFile)
+        // .then(res => this.addSong())
+        // .then(res => this.loadSounds())
         .then(res => this.setState( {songFile: res} ))
-        .catch(err => console.log(err));
+        // .catch(err => console.log(err));
     }
   };
+
+  updateSoundCategory = props => {
+    // event.preventDefault();
+    // console.log('chosen event to update soundCategory: ', event);
+    console.log('props?? ', props);
+    this.setState.soundCategory = props;
+  }
 
   render() {
     return (
@@ -130,8 +139,6 @@ class NavBar extends Component {
               <FormBtn
                 disabled={!(this.state.query)}
                 onClick={this.handleFormSubmit}
-                //NOTE must setState w/ queried song
-                // onClick={() => this.state.addSong('query')}
               >
                 Get Songs
               </FormBtn>

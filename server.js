@@ -1,20 +1,13 @@
-const seeders = require('./seeders/sounds.js');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
-const Spotify = require('node-spotify-api');
-// const path = require('path');
+// const Spotify = require('node-spotify-api');
 const routes = require('./routes');
-const db = require("./models");
 const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-//app.post('/api/sounds', (req, res) => {
-  //console.log('req.body', req.body);
-//});
 
 app.use(routes);
 

@@ -1,15 +1,13 @@
 import './Home.css';
-// import '../../seeders/sounds.js';
 import React, { Component } from "react";
-import Delete from "../../components/Delete";
 import API from "../../utl/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
+import { Delete } from '../../components/Delete';
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
+import { FormBtn } from "../../components/Form";
 import { Howl } from 'howler';
-import ReactHowler from 'react-howler';
-// const db = require("../../../models/index.js");
+// import ReactHowler from 'react-howler';
 
 class Sounds extends Component {
   constructor(props) {
@@ -19,64 +17,34 @@ class Sounds extends Component {
       sounds: [],
       playing: false,
       query: '',
+      soundCategory: ''
     };
   }
 
   componentDidMount() {
-    this.loadSounds();
-    // this.pushSounds()
-    //   .then(() =>  {
-        console.log('component mounted');
-      // })
-      // .catch(error => console.error(error));
-  }
-
-  pushSounds = () => {
-    // console.log('sanity check.. component mounted?');
-    // return new Promise((resolve, reject) => {
-    //     soundFreqFiles.insertMany([
-    //       {
-    //         'name': 'buzz',
-    //         'file': '/sounds/bug-buzz.wav',
-    //         'category': 'bug'
-    //       },
-    //       {
-    //         'name': 'call',
-    //         'file': '/sounds/bug-call.wav',
-    //         'category': 'bug'
-    //       }
-    //     ]);
-      // API.saveSound(seeders)
-      //   .then(res => {
-      //     console.log('db populated successfully');
-      //   })
-    // })
+    this.loadSounds()
+    .catch(error => console.error(error));
   }
 
   loadSounds = () => {
     return new Promise((resolve, reject) => {
       API.getSounds()
-        .then(res => {
-          console.log('getSounds res', res);
-          this.setState({ sounds: res.data})
-          resolve();
+        .then(resolve => {
+          console.log('getSounds res', resolve);
+          this.setState({ sounds: resolve.data});
+          // resolve();
         })
         .catch(err => reject(err));
+        console.log('this.state: ', this.state);
     })
   };
-
-  deleteSound = id => {
-    API.deleteSound(id)
-      .then(res => this.loadSounds())
-      .catch(err => console.log(err));
-  };
-
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
+  //
+  // handleInputChange = event => {
+  //   const { name, value } = event.target;
+  //   this.setState({
+  //     [name]: value
+  //   });
+  // };
   //
   // handleFormSubmit = event => {
   //   event.preventDefault();
@@ -93,12 +61,8 @@ class Sounds extends Component {
     var sound = new Howl({
       src: [soundUrl],
       playing: true
-      //   autoplay: false,
-      //   loop: false,
-      //   volume: 0.5,
     });
     sound.play();
-    console.log('done howling');
   }
 
   render() {
@@ -108,7 +72,7 @@ class Sounds extends Component {
           <Col size="md-6 sm-12">
             {this.state.sounds.length ? (
               <List>
-                {/* {this.state.sounds.map(sound => (
+                {this.state.sounds.map(sound => (
                   <ListItem key={sound._id}>
                     <Link to={"/sounds/" + sound._id}>
                       <strong>
@@ -117,15 +81,18 @@ class Sounds extends Component {
                     </Link>
                     <Delete onClick={() => this.deleteSound(sound._id)} />
                   </ListItem>
-                ))} */}
-                {this.state.sounds
-                  .filter(sound => sound.description === this.props.soundCategory || this.props.soundCategory === 'all')
-                  .map(sound => (
-                  <div key={ sound._id }>
-                    <button onClick={ () => this.handlePlay(sound.file) } > { `${sound.file}` }</button>
-                  </div>
-
                 ))}
+                <FormBtn>
+                {this.state.sounds
+                    .filter(sound => sound.soundCategory === this.props.soundCategory || this.props.soundCategory === 'all')
+                    .map(sound => (
+                      <div key={ sound._id }>
+                        <button onClick={ () => this.handlePlay(sound.file) } > { `${sound.file}` }</button>
+                      </div>
+                    ))
+                  }
+
+                </FormBtn>
               </List>
             ) : (
               <h3>Choose a sound category from the menu</h3>
